@@ -1,0 +1,29 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".SliderActivity"
+android:background="@drawable/terms"
+android:orientation="vertical"
+
+    >
+
+<Button
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:onClick="loadSlides"
+    android:text="NEXT.."
+    android:textSize="20dp"
+    android:layout_marginTop="530dp"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
+    android:background="@color/Bisque"
+    android:textColor="@color/Black"
+
+    />
+
+
+</LinearLayout>

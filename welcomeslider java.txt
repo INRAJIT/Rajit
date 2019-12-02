@@ -1,0 +1,182 @@
+package com.example.bcn;
+
+import android.content.Intent;
+import android.os.Build;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.text.Layout;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import java.sql.Time;
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class WelcomeSlider extends AppCompatActivity implements View.OnClickListener {
+
+    private ViewPager mPager;
+    private int[] layouts ={R.layout.firstslide,R.layout.secondslide,R.layout.thirdslide};
+    private MypagerAdapter mypagerAdapter;
+
+    private LinearLayout Dots_Layout;
+    private ImageView[] dots;
+
+
+
+    private Button BnNext, BnSkip;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().hide();
+        super.onCreate(savedInstanceState);
+
+        if(new PreferenceManager(this).checkPreference()){
+            loadHome();
+        }
+        setContentView(R.layout.activity_welcome_slider);
+
+        mPager=(ViewPager)findViewById(R.id.viewPager);
+        mypagerAdapter= new MypagerAdapter(layouts,this);
+        mPager.setAdapter(mypagerAdapter);
+
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new MyTimerTask(),1000,2000);
+
+        Dots_Layout = (LinearLayout)findViewById(R.id.dotsLayout);
+
+        BnNext=(Button)findViewById(R.id.bnNext);
+        BnSkip=(Button)findViewById(R.id.bnSkip);
+
+        BnNext.setOnClickListener(this);
+        BnSkip.setOnClickListener(this);
+        createDots(0);
+
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                createDots(position);
+
+                if(position==layouts.length-1){
+                    BnNext.setText("Start");
+                    BnSkip.setVisibility(View.INVISIBLE);
+
+                }
+                else{
+                    BnNext.setText("Next");
+                    BnSkip.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+    }
+
+    public class MyTimerTask extends TimerTask{
+
+        @Override
+        public void run() {
+            WelcomeSlider.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(mPager.getCurrentItem()==0){
+                        mPager.setCurrentItem(1);
+
+                    }
+
+                    else if(mPager.getCurrentItem()==1){
+                        mPager.setCurrentItem(2);
+                    }
+                    else if(mPager.getCurrentItem()==2){
+                        mPager.setCurrentItem(3);
+                    }
+                    else {
+                        mPager.setCurrentItem(0);
+                    }
+
+                }
+            });
+        }
+    }
+
+
+    private void createDots(int current_position){
+
+        if(Dots_Layout!=null)
+            Dots_Layout.removeAllViews();
+
+        dots=new ImageView[layouts.length];
+
+        for (int i=0; i<layouts.length; i++){
+
+            dots[i]=new ImageView(this);
+            if (i==current_position){
+                dots[i].setImageDrawable(ContextCompat.getDrawable(this, R.drawable.active_dots));
+            }
+
+            else{
+                dots[i].setImageDrawable(ContextCompat.getDrawable(this, R.drawable.default_dots));
+            }
+            LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(4,0,4,0);
+
+            Dots_Layout.addView(dots[i],params);
+
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()){
+            case R.id.bnNext:
+
+                loadNextSlide();
+                break;
+
+            case R.id.bnSkip:
+                loadHome();
+                new PreferenceManager(this).writePreference();
+                break;
+        }
+
+    }
+
+    private void loadHome(){
+        startActivity(new Intent(this, SliderActivity.class));
+        finish();
+    }
+
+    private void loadNextSlide()
+    {
+        int next_slide=mPager.getCurrentItem()+1;
+
+        if(next_slide<layouts.length){
+            mPager.setCurrentItem(next_slide);
+        }
+
+        else {
+            loadHome();
+            new PreferenceManager(this).writePreference();
+        }
+    }
+}
+
+
