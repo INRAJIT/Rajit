@@ -1,0 +1,94 @@
+package com.example.rajit;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    ListView listView;
+
+    String mTitle[]={"fb","rj","bg","ch"};
+    String desc[]={"fbdes","rjdes","bgdes","chdes"};
+    int img[]={R.drawable.a,R.drawable.b,R.drawable.c,R.drawable.d};
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        listView = (ListView)findViewById (R.id.listview);
+
+        MyAdapter adapter = new MyAdapter(this,mTitle,desc,img);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0){
+                    Intent intent = new Intent(MainActivity.this, App.class);
+                    startActivity(intent);
+                }
+                if(position == 1){
+                    Toast.makeText(MainActivity.this, "rjdes ", Toast.LENGTH_SHORT).show();
+                }
+                if(position == 2){
+                    Toast.makeText(MainActivity.this, "bgdes ", Toast.LENGTH_SHORT).show();
+                }
+                if(position == 3){
+                    Toast.makeText(MainActivity.this, "chdes ", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    class  MyAdapter extends ArrayAdapter<String>{
+
+        Context context;
+        String mTitle[];
+        String desc[];
+        int img[];
+
+        MyAdapter (Context c, String title[], String description[], int img[]){
+
+            super(c, R.layout.activity_row,R.id.tv1, title);
+            this.context= c;
+            this.mTitle = title;
+            this.desc= description;
+            this.img= img;
+
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+            LayoutInflater layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(context.LAYOUT_INFLATER_SERVICE);
+            View row = layoutInflater.inflate(R.layout.activity_row, parent , false);
+            ImageView images =  row.findViewById(R.id.img);
+            TextView myTitle = row.findViewById(R.id.tv1);
+            TextView myDescription = row.findViewById(R.id.tv2);
+
+
+            images.setImageResource(img[position]);
+            myTitle.setText(mTitle[position]);
+            myDescription.setText(desc[position]);
+
+
+            return super.getView(position, convertView, parent);
+        }
+    }
+}
