@@ -1,0 +1,107 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LogInActivity"
+    android:orientation="vertical"
+    android:background="@drawable/a"
+    android:padding="30dp"
+    >
+
+    <ImageView
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_below="@+id/l1"
+        android:src="@drawable/pro"
+        android:id="@+id/ivimg1"
+        android:paddingTop="20dp"
+        />
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SignUp Here"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:textColor="@color/OrangeRed"
+       android:layout_marginTop="5dp"
+        android:layout_marginBottom="6dp"
+
+        />
+
+
+    <EditText
+        android:id="@+id/etName"
+        android:drawableLeft="@drawable/ic_person_black_24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@android:color/white"
+
+        android:hint="name"
+        android:inputType="textPersonName"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:drawableLeft="@drawable/ic_email_black_24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@android:color/white"
+
+        android:hint="email"
+        android:inputType="textPersonName"
+        android:padding="10dp" />
+
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:drawableLeft="@drawable/ic_security_black_24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@android:color/white"
+
+        android:hint="password"
+        android:inputType="textPassword"
+        android:padding="10dp" />
+
+
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="#f05924"
+        android:text="register"
+        android:textColor="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+
+        >
+        <TextView
+            android:paddingTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already Registered?"
+            android:textColor="@color/Black"
+            android:id="@+id/tvalready"
+            />
+
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
