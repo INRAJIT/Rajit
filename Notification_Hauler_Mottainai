@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Notification_Hauler_Mottainai">
+
+
+    <androidx.appcompat.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:titleTextColor="@android:color/white"
+        android:background="@color/Black"
+        android:fitsSystemWindows="true"
+        android:minHeight="?attr/actionBarSize"
+        >
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="THE HAULER HAS ARRIVED"
+            android:fitsSystemWindows="true"
+            android:textColor="@android:color/white"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_gravity="center"
+            />
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="15dp"
+            android:background="@drawable/backarrow"
+            android:layout_marginLeft="4dp"
+            android:clickable="true"
+            android:fitsSystemWindows="true"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <android.app.FragmentBreadCrumbs
+            android:layout_width="match_parent"
+            android:layout_height="300dp"/>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/del"
+            />
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pinky Todi"
+            android:layout_toRightOf="@+id/img1"
+            android:paddingLeft="5dp"
+            />
+
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pinky Todi"
+            android:layout_below="@+id/tv1"
+            android:layout_toRightOf="@+id/img1"
+            android:paddingLeft="5dp"
+            />
+
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pinky Todi"
+            android:layout_below="@+id/tv2"
+            android:layout_toRightOf="@+id/img1"
+            android:paddingLeft="5dp"
+            />
+        <ImageView
+            android:id="@+id/img2"
+            android:layout_below="@+id/tv3"
+            android:layout_width="390dp"
+            android:layout_height="2dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/dashed_line_divider"
+
+            />
+
+        <TextView
+            android:id="@+id/tv4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Order details"
+            android:layout_below="@+id/img2"
+            android:paddingLeft="5dp"
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="14dp"
+            android:textColor="@color/Black"
+            />
+
+        <TextView
+            android:id="@+id/tv5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pinky todi is coming soon to Pick"
+            android:layout_below="@+id/tv4"
+            android:paddingLeft="5dp"
+            android:textSize="17dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/btnblack"
+            />
+
+        <TextView
+            android:id="@+id/tv6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Plastic, Metal, Glass"
+            android:layout_below="@+id/tv5"
+            android:paddingLeft="5dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/Black"
+            />
+
+        <ImageView
+            android:id="@+id/img3"
+            android:layout_below="@+id/tv6"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/del"
+
+            />
+        <TextView
+            android:id="@+id/tv7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2 asibifi road"
+            android:layout_below="@+id/tv5"
+            android:paddingLeft="5dp"
+            android:textSize="17dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/btnblack"
+            />
+
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
