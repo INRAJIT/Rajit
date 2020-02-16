@@ -1,0 +1,23 @@
+package com.collanomics.android.rajit_wmscustomer.api;
+
+import android.util.Log;
+
+import com.collanomics.android.rajit_wmscustomer.models.LoginResponse;
+
+import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
+
+
+public interface Api {
+
+    @FormUrlEncoded
+    @POST("login")
+    Call<LoginResponse> login(
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("url") String url
+
+    );
+}
