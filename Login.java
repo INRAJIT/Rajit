@@ -1,143 +1,116 @@
-package com.collanomics.android.dummyapplication;
+package com.collanomics.android.rajit_wmscustomer;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompatSideChannelService;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
+import com.collanomics.android.rajit_wmscustomer.api.RetrofitClient;
+import com.collanomics.android.rajit_wmscustomer.models.LoginResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.Map;
 
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
+import static retrofit2.Response.success;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class LogIn extends AppCompatActivity  {
 
-  //  private static final String TAG = "Login";
+    private static final String TAG = "LogIn";
 
-    private EditText editTextEmail, editTextPassword;
-    private Button buttonLogin;
-    // public static String email, password;
-
-   // final String url = "https://reqres.in/api/login";
+    EditText  etemail, etpassword, eturl;
+    Button b1;
+  //  String email, url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_log_in);
 
 
-        editTextEmail = findViewById(R.id.editTextEmail);
-        editTextPassword = findViewById(R.id.editTextPassword);
-        buttonLogin = findViewById(R.id.buttonLogin);
-
-        findViewById(R.id.buttonLogin).setOnClickListener(this);
+        etemail = findViewById(R.id.ed1);
+        etpassword = findViewById(R.id.ed2);
+        eturl = findViewById(R.id.ed3);
 
 
-    }
+     //   email = etemail.getText().toString();
+     //   url = eturl.getText().toString();
 
-    private void userLogin() {
 
-        String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+        b1 = findViewById(R.id.b1);
 
-        if (email.isEmpty()) {
+      /*  b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+              //  saveData(email,url);
+            }
+        });
+    }*/
 
-            editTextEmail.setError("Email is required");
-            editTextEmail.requestFocus();
-            return;
-        }
+   b1.setOnClickListener(new View.OnClickListener() {
+       @Override
+       public void onClick(View v) {
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+           Log.d(TAG, "onFailure: ");
 
-            editTextEmail.setError("Enter a valid email");
-            editTextEmail.requestFocus();
-            return;
-        }
-
-        if (password.isEmpty()) {
-
-            editTextEmail.setError("Password is required");
-            editTextEmail.requestFocus();
-            return;
-        }
-
-        if (password.length() < 10) {
-
-            editTextEmail.setError("password must be 10 character long");
-            editTextEmail.requestFocus();
-            return;
-        }
+        String email = etemail.getText().toString().trim();
+        String password = etpassword.getText().toString().trim();
+        String url = eturl.getText().toString().trim();
 
 
         Call<LoginResponse> call = RetrofitClient
-                .getInstance()
-                .getApi()
-                .userLogin(email, password);
-
+                .getInstance().getApi().login(email,password,url);
+           Log.d(TAG, "onFailure: ");
 
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse loginResponse = response.body();
+                Log.d(TAG, "onFailure: ");
 
-             //  if(!loginResponse.getPage()){
+                if(loginResponse==success){
 
-
-                   Toast.makeText(Login.this,loginResponse.getTotal(),Toast.LENGTH_LONG).show();
-             //  }
-
+                    Log.d(TAG, "onFailure: ");
+                    Intent i = new Intent(LogIn.this,ThankYou_Mottainai.class);
+                    startActivity(i);
+                }
+               else {
+                    Toast.makeText(LogIn.this, "Else",Toast.LENGTH_LONG).show();
+               }
             }
+
+
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
 
+                Toast.makeText(LogIn.this,"Error",Toast.LENGTH_LONG).show();
 
-                Toast.makeText(Login.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                Log.d(TAG, "onFailure: ");
 
             }
         });
 
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        switch (v.getId()) {
-
-            case R.id.buttonLogin:
-                userLogin();
-                break;
-        }
+       }
+   });
 
     }
 
@@ -145,76 +118,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 }
 
 
-
-
-
-
-
-
-  /* if (!loginResponse.isEr()) {
-
-
-                    Toast.makeText(Login.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
-
-                } else {
-
-                    Toast.makeText(Login.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
-                }*/
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    private void userLogin() {
-        //first getting the values
-        final String email = etEmail.getText().toString();
-        final String password = etPass.getText().toString();
-        //validating inputs
-        if (TextUtils.isEmpty(email)) {
-            etEmail.setError("Please enter your email");
-            etEmail.requestFocus();
-            return;
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            etPass.setError("Please enter your password");
-            etPass.requestFocus();
-            return;
-        }
-
-        //if everything is fine
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLs.URL_LOGIN,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressBar.setVisibility(View.GONE);
-
-                        try {
-                            //converting response to json object
-                            JSONObject obj = new JSONObject(response);
-
-                            //if no error in response
-                            if (!obj.getBoolean("error")) {
-                                Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
-
-                                //getting the user from the response
-                                JSONObject userJson = obj.getJSONObject("user");
-
-                                //creating a new user object
-                                User user = new User(
-                                        userJson.getInt("id"),
-                                        userJson.getString("email"),
-                                        userJson.getString("password")
-                                );
-
-     */
 
 
 
