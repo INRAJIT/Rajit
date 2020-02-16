@@ -1,38 +1,23 @@
-package com.collanomics.android.dummyapplication;
+package com.collanomics.android.rajit_wmscustomer.models;
+
+import android.util.Log;
 
 public class LoginResponse {
 
-    private int page;
-    private int per_page;
-    private int total;
-    private int total_pages;
-    private User data;
+  //  private String success;
+    private User customer;
+    private static final String TAG = "LoginResponse";
 
-    public LoginResponse(int page, int per_page, int total, int total_pages, User data) {
-        this.page = page;
-        this.per_page = per_page;
-        this.total = total;
-        this.total_pages = total_pages;
-        this.data = data;
+    public LoginResponse( User customer) {
+      //  this.success = success;
+        this.customer = customer;
+
+        Log.d(TAG, "onFailure: ");
+
     }
 
-    public int getPage() {
-        return page;
-    }
 
-    public int getPer_page() {
-        return per_page;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public int getTotal_pages() {
-        return total_pages;
-    }
-
-    public User getData() {
-        return data;
+    public User getCustomer() {
+        return customer;
     }
 }
